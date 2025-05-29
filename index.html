@@ -11,6 +11,10 @@
       text-align: center;
       background: #2A7B9B; 
         background-image: url("https://res.cloudinary.com/dcr6u8w5k/image/upload/v1748507521/IOT%20PROJECT/esp_project_bg.jpg");
+img {
+  opacity: 0.5;
+}
+
       margin: 0;
       padding: 0 10px 40px;
       display: flex;
@@ -26,7 +30,7 @@
 
         .relay-card {
       display: inline-block;
-      background-color: white;
+      background-color: #ffffff8e;
       padding: 20px;
       margin: 15px;
       border-radius: 15px;
@@ -93,7 +97,7 @@
     #loginForm {
       max-width: 400px;
       margin: 80px auto 20px;
-      background: rgb(170, 197, 247);
+      background: rgba(170, 197, 247, 0.589);
       padding: 30px 20px;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -254,13 +258,13 @@
         relayRef.on("value", (snapshot) => {
           const state = snapshot.val();
           statusText.innerText = state ? "ON" : "OFF";
-          toggleButton.style.backgroundColor = state ? "green" : "black";
+          toggleButton.style.backgroundColor = state ? "green" : "black"
           const card = toggleButton.closest(".relay-card");
           if (state) card.classList.add("on");
           else card.classList.remove("on");
         });
         toggleButton.onclick = () => {
-          relayRef.get().then(snap => {https://github.com/dlineservice/ESP32Relay01/blob/main/index.html
+          relayRef.get().then(snap => {
             relayRef.set(!snap.val());
           });
         };
