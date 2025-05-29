@@ -254,7 +254,7 @@
         relayRef.on("value", (snapshot) => {
           const state = snapshot.val();
           statusText.innerText = state ? "ON" : "OFF";
-          toggleButton.style.backgroundColor = state ? "green" : "blue";
+          toggleButton.style.backgroundColor = state ? "green" : "black";
           const card = toggleButton.closest(".relay-card");
           if (state) card.classList.add("on");
           else card.classList.remove("on");
