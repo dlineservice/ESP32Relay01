@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,8 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background-color: #f9f9f9;
+      background: #2A7B9B; 
+        background-image: url("https://res.cloudinary.com/dcr6u8w5k/image/upload/v1748507521/IOT%20PROJECT/esp_project_bg.jpg");
       margin: 0;
       padding: 0 10px 40px;
       display: flex;
@@ -18,9 +20,11 @@
     }
     h1 {
       margin-top: 30px;
-      font-size: 1.8rem;
+      font-size: 2rem;
+      color: #ffffff;
     }
-    .relay-card {
+
+        .relay-card {
       display: inline-block;
       background-color: white;
       padding: 20px;
@@ -29,10 +33,16 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       width: 220px;
       vertical-align: top;
+      transition: background-color 0.3s ease, border 0.3s ease;
+    }
+    .relay-card.on {
+      background-color: #e0f7e9;
+      border: 2px solid #4caf50;
     }
     .relay-card h2 {
       margin-bottom: 10px;
       font-size: 1.3rem;
+      color: #333;
     }
     .relay-card p {
       margin-bottom: 10px;
@@ -43,16 +53,16 @@
       border: none;
       border-radius: 10px;
       color: white;
-      background-color: blue;
+      background-color: rgb(73, 73, 73);
       cursor: pointer;
       font-size: 16px;
-	  width: 90%;
+      width: 90%;
       transition: opacity 0.3s ease;
     }
     .relay-card button:hover {
       opacity: 0.8;
     }
-    #allOffBtn, #logoutBtn {
+    #allOffBtn, #allOnBtn, #logoutBtn {
       max-width: 300px;
       width: 90%;
       padding: 12px 25px;
@@ -60,32 +70,30 @@
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      margin: 15px auto;
+      margin: 10px auto;
       display: block;
       color: white;
       transition: opacity 0.3s ease;
     }
     #allOffBtn {
-      background-color: #d32f2f;
+      background-color: #960606;
     }
-    #allOffBtn:hover {
-      opacity: 0.8;
+    #allOnBtn {
+      background-color: #43a047;
     }
     #logoutBtn {
-      background-color: #555;
+      background-color: #8522f7;
     }
-    #logoutBtn:hover {
+    #allOffBtn:hover, #allOnBtn:hover, #logoutBtn:hover {
       opacity: 0.8;
     }
-
-    /* Responsive layout */
     #dashboard {
       display: none;
     }
     #loginForm {
       max-width: 400px;
       margin: 80px auto 20px;
-      background: white;
+      background: rgb(170, 197, 247);
       padding: 30px 20px;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -106,7 +114,7 @@
     }
     #loginForm button {
       width: 100%;
-      background-color: #1e88e5;
+      background-color: #01428d;
       color: white;
       padding: 12px;
       font-size: 18px;
@@ -116,7 +124,7 @@
       transition: background-color 0.3s ease;
     }
     #loginForm button:hover {
-      background-color: #1565c0;
+      background-color: #3b4652;
     }
     #dashboard .relay-container {
       max-width: 960px;
@@ -125,7 +133,6 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-    /* Smaller devices */
     @media (max-width: 700px) {
       .relay-card {
         width: 90%;
@@ -138,7 +145,7 @@
     }
     footer {
       font-size: 0.9rem;
-      color: #666;
+      color: #ffffff;
       padding: 10px 0;
       margin-top: 40px;
     }
@@ -146,16 +153,14 @@
 </head>
 <body>
 
-  <h1>ESP32 Relay Control Dashboard</h1>
-
-  <!-- Login form -->
+  <h1>ESP32 Relay Control Dashboard</h1> <br>
+ 
   <div id="loginForm">
     <input type="email" id="email" placeholder="Enter Email" required />
     <input type="password" id="password" placeholder="Enter Password" required />
     <button id="loginBtn">Login</button>
   </div>
 
-  <!-- Dashboard -->
   <div id="dashboard">
     <div class="relay-container">
       <div class="relay-card">
@@ -163,19 +168,16 @@
         <p>Status: <span id="status1">Loading...</span></p>
         <button id="btn1">Toggle</button>
       </div>
-
       <div class="relay-card">
         <h2>Relay 2</h2>
         <p>Status: <span id="status2">Loading...</span></p>
         <button id="btn2">Toggle</button>
       </div>
-
       <div class="relay-card">
         <h2>Relay 3</h2>
         <p>Status: <span id="status3">Loading...</span></p>
         <button id="btn3">Toggle</button>
       </div>
-
       <div class="relay-card">
         <h2>Relay 4</h2>
         <p>Status: <span id="status4">Loading...</span></p>
@@ -183,34 +185,31 @@
       </div>
     </div>
 
+    <button id="allOnBtn">All ON</button>
     <button id="allOffBtn">All OFF</button>
     <button id="logoutBtn">Logout</button>
   </div>
 
   <footer>
-    Created by Tech StudyCell
+    Created by @Himadri S. Deshmukh</S>
   </footer>
 
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 
   <script>
-    // Firebase config
     const firebaseConfig = {
-  apiKey: "AIzaSyBriSXJrvk3uYxIZBUKV2yfphYXMhzak6I",
-  authDomain: "esp32-relaycontrol-web.firebaseapp.com",
-  databaseURL: "https://esp32-relaycontrol-web-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "esp32-relaycontrol-web",
-  storageBucket: "esp32-relaycontrol-web.firebasestorage.app",
-  messagingSenderId: "1081332098260",
-  appId: "1:1081332098260:web:68917a81b368bb2dd24741"
-};
-
+      apiKey: "AIzaSyBriSXJrvk3uYxIZBUKV2yfphYXMhzak6I",
+      authDomain: "esp32-relaycontrol-web.firebaseapp.com",
+      databaseURL: "https://esp32-relaycontrol-web-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "esp32-relaycontrol-web",
+      storageBucket: "esp32-relaycontrol-web.firebasestorage.app",
+      messagingSenderId: "1081332098260",
+      appId: "1:1081332098260:web:68917a81b368bb2dd24741"
+    };
     firebase.initializeApp(firebaseConfig);
 
-    // Predefined login credentials (can be replaced with your logic)
     const allowedEmail = "hdeshmukh3@gmail.com";
     const allowedPassword = "091180";
 
@@ -221,18 +220,13 @@
     loginBtn.addEventListener("click", () => {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-
       if (!email || !password) {
         alert("Please enter email and password.");
         return;
       }
-
-      // Check hardcoded credentials first
       if(email === allowedEmail && password === allowedPassword){
-        // Sign in with Firebase
         firebase.auth().signInWithEmailAndPassword(email, password)
           .then(userCredential => {
-            console.log("Signed in as", userCredential.user.email);
             loginForm.style.display = "none";
             dashboard.style.display = "block";
             startRelayControl();
@@ -247,35 +241,38 @@
 
     function startRelayControl() {
       const db = firebase.database();
-
       const relays = [
         { id: 1, path: "relay1" },
         { id: 2, path: "relay2" },
         { id: 3, path: "relay3" },
         { id: 4, path: "relay4" },
       ];
-
       relays.forEach(relay => {
         const statusText = document.getElementById(`status${relay.id}`);
         const toggleButton = document.getElementById(`btn${relay.id}`);
         const relayRef = db.ref("/" + relay.path);
-
         relayRef.on("value", (snapshot) => {
           const state = snapshot.val();
           statusText.innerText = state ? "ON" : "OFF";
           toggleButton.style.backgroundColor = state ? "green" : "blue";
+          const card = toggleButton.closest(".relay-card");
+          if (state) card.classList.add("on");
+          else card.classList.remove("on");
         });
-
         toggleButton.onclick = () => {
-          relayRef.get().then(snap => {
+          relayRef.get().then(snap => {https://github.com/dlineservice/ESP32Relay01/blob/main/index.html
             relayRef.set(!snap.val());
           });
         };
       });
-
       document.getElementById("allOffBtn").onclick = () => {
         relays.forEach(relay => {
           db.ref("/" + relay.path).set(false);
+        });
+      };
+      document.getElementById("allOnBtn").onclick = () => {
+        relays.forEach(relay => {
+          db.ref("/" + relay.path).set(true);
         });
       };
     }
